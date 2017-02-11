@@ -6,9 +6,9 @@ from flask_sqlalchemy import SQLAlchemy
 
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = (
-  'mysql://anonamousemapper:'
+  'postgresql://anonamousemapper:'
   + os.environ['DB_PASS']
-  +'@localhost/mapping_site')
+  +'@localhost/genderratio')
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db = SQLAlchemy(app)
 
