@@ -1,0 +1,5 @@
+Fully configurable gender ratio map with sub-city detail
+Disclaimer: I made this myself. Figured other people would find it interesting though.
+
+Start server (from main directory):
+gunicorn app.site:app -w 1 --threads 12

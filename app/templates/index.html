@@ -1,0 +1,124 @@
+<head>
+  <title>People Map</title>
+  <link rel="stylesheet" type="text/css" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/base/jquery-ui.css" />
+  <link rel="stylesheet" type="text/css" href="https://unpkg.com/leaflet@1.0.3/dist/leaflet.css" />
+  <link rel="stylesheet" type="text/css" href="/static/index.css" />
+</head>
+<body>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+  <script src="https://unpkg.com/leaflet@1.0.3/dist/leaflet.js"></script>
+  <script src="/static/js/tinycolor-min.js"></script>
+  <script src="/static/js/index.js"></script>
+  <div id="criteria">
+    <div id="swatch-1" class="color-swatch"></div>
+    <div id="swatch-2" class="color-swatch"></div>
+    <div id="swatch-3" class="color-swatch"></div>
+    <div id="swatch-4" class="color-swatch"></div>
+    <div id="swatch-5" class="color-swatch"></div>
+    <div id="swatch-6" class="color-swatch"></div>
+    <div id="swatch-7" class="color-swatch"></div>
+    <div id="swatch-8" class="color-swatch"></div>
+    <div id="swatch-9" class="color-swatch"></div>
+
+    <h3>Selection Criteria</h3>
+
+    <!-- Age -->
+    <div class="age">
+      <p>
+        <label for="amount">Age:</label>
+        <input type="text" class="amount" id="amount" name="age" readonly>
+      </p>
+       
+      <div id="slider-range"></div>
+    </div>
+
+    <!-- Race -->
+    <fieldset>
+      <legend>Race</legend>
+      <label for="race-1">Hispanic</label>
+      <input type="checkbox" id="race-1" name="race" value="1">
+      <label for="race-2">White</label>
+      <input type="checkbox" id="race-2" name="race" value="2" checked>
+      <label for="race-3">Black</label>
+      <input type="checkbox" id="race-3" name="race" value="3">
+      <label for="race-4">Native American</label>
+      <input type="checkbox" id="race-4" name="race" value="4">
+      <label for="race-5">Indian</label>
+      <input type="checkbox" id="race-5" name="race" value="5">
+      <label for="race-6">East Asian</label>
+      <input type="checkbox" id="race-6" name="race" value="6" checked>
+      <label for="race-7">Other</label>
+      <input type="checkbox" id="race-7" name="race" value="7">
+    </fieldset>
+    
+    <!-- Education -->
+    <fieldset>
+      <legend>Education</legend>
+      <label for="education-1">No Degree</label>
+      <input type="checkbox" id="education-1" name="education" value="1">
+      <label for="education-2">Bachelors</label>
+      <input type="checkbox" id="education-2" name="education" value="2" checked>
+      <label for="education-3">Masters</label>
+      <input type="checkbox" id="education-3" name="education" value="3" checked>
+      <label for="education-4">Doctorate</label>
+      <input type="checkbox" id="education-4" name="education" value="4" checked>
+    </fieldset>
+    
+    <!-- Housing Status -->
+    <fieldset>
+      <legend>Housing</legend>
+      <label for="housing-1">Lives Alone</label>
+      <input type="checkbox" id="housing-1" name="housing" value="1">
+      <label for="housing-2">Lives with Others</label>
+      <input type="checkbox" id="housing-2" name="housing" value="2">
+    </fieldset>
+    
+    <!-- Children Status -->
+    <fieldset>
+      <legend>Children</legend>
+      <label for="children-1">Children at Home</label>
+      <input type="checkbox" id="children-1" name="children" value="1">
+      <label for="children-2">No Children (at Home)</label>
+      <input type="checkbox" id="children-2" name="children" value="2" checked>
+    </fieldset>
+    
+    <!-- Marriage Status -->
+    <fieldset>
+      <legend>Marriage Status</legend>
+      <label for="marriage_status-1">Married</label>
+      <input type="checkbox" id="marriage_status-1" name="marriage_status" value="1">
+      <label for="marriage_status-2">Single, Previously Married</label>
+      <input type="checkbox" id="marriage_status-2" name="marriage_status" value="2">
+      <label for="marriage_status-3">Single, Never Married</label>
+      <input type="checkbox" id="marriage_status-3" name="marriage_status" value="3" checked>
+    </fieldset>
+
+  </div>
+  <div id="people_map"></div>
+
+  <script>
+    var x = -77.04;
+    var y = 38.91;
+    var people_map = L.map('people_map').setView([y, x], 12);
+    var current_xhr = null;
+    people_map.fidelity = -1;
+    L.tileLayer(
+      'https://api.tiles.mapbox.com/v4/mapbox.emerald/{z}/{x}/{y}.png?access_token={accessToken}',
+      {
+        attribution:
+          'Base Map data &copy; ' +
+          '<a href="http://openstreetmap.org">OpenStreetMap</a> contributors, ' +
+          '<a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, ' +
+          'Imagery &copy; <a href="http://mapbox.com">Mapbox</a>, ' +
+          'Demographic data: ' +
+          '<a href="https://usa.ipums.org/usa/sampdesc.shtml#us2014a">' +
+          'IPUMS-USA ACS 2014</a>',
+        maxZoom: 18,
+        accessToken: 'pk.eyJ1IjoiYW5vbmFtb3VzZW1hcHBlciIsImEiOiJjaXJhdjMwcDUwMTRpZzJtM3djOWhiZWF2In0.VCPr2ZYmGvCia050qW6c7g'
+      }
+    ).addTo(people_map);
+    people_map.on('moveend', on_move_end);
+    $(":input").change(function(event) {on_criteria_change(people_map);});
+  </script>
+</body>

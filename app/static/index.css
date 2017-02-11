@@ -1,0 +1,80 @@
+body {
+  margin: 0;
+}
+
+#criteria {
+  width: 242px;
+  height: 100%;
+  float: left;
+  overflow-y: scroll;
+}
+
+#criteria h3 {
+  text-align: center;
+}
+
+#criteria .age {
+  padding-left: 10px;
+  padding-right: 13px;
+}
+
+#criteria .age input {
+  border: 0;
+  color: #f6931f;
+  font-weight:bold;
+  max-width: 50px;
+}
+
+#criteria fieldset {
+  margin-top: 15px;
+}
+
+#criteria fieldset label {
+  width: 161px;
+}
+
+#people_map {
+  height: 100%;
+}
+
+#swatch-1 {
+  background-color: #00ff00;
+}
+
+#swatch-2 {
+  background-color: #4bff00;
+}
+
+#swatch-3 {
+  background-color: #80ff00;
+}
+
+#swatch-4 {
+  background-color: #a5ff00;
+}
+
+#swatch-5 {
+  background-color: #ffff00;
+}
+
+#swatch-6 {
+  background-color: #ffa500;
+}
+
+#swatch-7 {
+  background-color: #ff8000;
+}
+
+#swatch-8 {
+  background-color: #ff4b00;
+}
+
+#swatch-9 {
+  background-color: #ff0000;
+}
+
+.color-swatch {
+  float: left;
+  width: 25.222px;
+  height: 10px;
+}
