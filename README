@@ -1,5 +1,15 @@
-Fully configurable gender ratio map with sub-city detail
-Disclaimer: I made this myself. Figured other people would find it interesting though.
+Fully configurable gender ratio map web app with sub-city detail
+
+Note: This requires a DB to actually run. The scripts for creating
+      the DB are in this repo, but the source data from which the
+      DB is populated is too big to be stored in GitHub. Feel free
+      to create an issue if you want to contact me to get the
+      source files.
 
 Start server (from main directory):
 gunicorn app.site:app -w 1 --threads 12
+
+Disclaimer: I made this by myself for myself to learn a bit about
+            web apps. Figured other people might find it
+            interesting though.
+
