@@ -153,6 +153,7 @@ function add_new_polygons_to_map(data, map) {
       continue;
     }
     var color = get_color(polygon_dict.stats);
+    polygon_dict.points = JSON.parse(polygon_dict.points);
     var polygon = L.polygon(
       polygon_dict.points,
       {

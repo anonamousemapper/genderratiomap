@@ -24,6 +24,7 @@ import shapefile
 import sys
 
 from app.constants import *
+from app.util import convert_and_round_points_list, get_boundary_points
 from pyproj import Proj, transform
 
 if len(sys.argv) != 3:
@@ -46,21 +47,6 @@ def convert_point_type(points_list):
   for point in points_list:
     converted_points.append(transform(inProj, outProj, point[0], point[1]))
   return converted_points
-
-# Get the boundary values for this set of points.
-def get_boundary_points(points_list):
-  min_lng, min_lat = points_list[0]
-  max_lng, max_lat = points_list[0]
-  for lng, lat in points_list:
-    if lng < min_lng:
-      min_lng = lng
-    if lng > max_lng:
-      max_lng = lng
-    if lat < min_lat:
-      min_lat = lat
-    if lat > max_lat:
-      max_lat = lat
-  return min_lng, min_lat, max_lng, max_lat
 
 with open(sys.argv[2], 'wb') as csv_file:
   # Get a pointer to the data.
@@ -99,9 +85,12 @@ with open(sys.argv[2], 'wb') as csv_file:
       # Get points.
       if i < max_i:
         lat_lng_points = (
-          convert_point_type(shape.points[point_index:shape.parts[i+1]]))
+          convert_and_round_points_list(
+            convert_point_type(shape.points[point_index:shape.parts[i+1]])))
       else:
-        lat_lng_points = convert_point_type(shape.points[point_index:])
+        lat_lng_points = (
+          convert_and_round_points_list(
+            convert_point_type(shape.points[point_index:])))
       fields_dict[FIELD_NAME_POINTS] = str(lat_lng_points)
       # Calculate bounding box.
       (fields_dict[FIELD_NAME_MIN_X],

@@ -1,7 +1,7 @@
 from constants import PUMA, STATE, COUNTY
 from models import (
-  PumaPolygon, PumaPoint, PumaPerson, CountyPolygon, CountyPoint, CountyPerson,
-  StatePolygon, StatePoint, StatePerson)
+  PumaPolygon, PumaPerson, CountyPolygon, CountyPerson, StatePolygon,
+  StatePerson)
 
 def get_fidelity(min_x, max_x, zoom_level):
   """Decides at what fidelity to display the data based on the current map view.
@@ -23,21 +23,21 @@ def get_fidelity(min_x, max_x, zoom_level):
     return PUMA
 
 
-def get_geometry_models(fidelity):
-  """Returns the correct models to use based on the fidelity.
+def get_geometry_model(fidelity):
+  """Returns the correct model to use based on the fidelity.
 
   Args:
     fidelity: The level of detail to display map data at.
 
   Returns:
-    The correct set of (XPolygon, XPoint) models.
+    The correct version of XPolygon.
   """
   if fidelity == PUMA:
-    return PumaPolygon, PumaPoint
+    return PumaPolygon
   elif fidelity == COUNTY:
-    return CountyPolygon, CountyPoint
+    return CountyPolygon
   else:
-    return StatePolygon, StatePoint
+    return StatePolygon
 
 
 def get_person_model(fidelity):
@@ -79,3 +79,30 @@ def get_polygon_name(polygon):
   elif isinstance(polygon, PumaPolygon):
     name = polygon.puma_name[:-5]
   return name
+
+
+# Turn the points list into something parsable by Javascript,
+# and reorder lat and long.
+def convert_and_round_points_list(points_list):
+  simplified_points = []
+  for point in points_list:
+    lng = point[0]
+    lat = point[1]
+    simplified_points.append([round(lat, 5), round(lng, 5)])
+  return simplified_points
+
+
+# Get the boundary values for this set of points.
+def get_boundary_points(points_list):
+  min_lat, min_lng = points_list[0]
+  max_lat, max_lng = points_list[0]
+  for lat, lng in points_list:
+    if lng < min_lng:
+      min_lng = lng
+    if lng > max_lng:
+      max_lng = lng
+    if lat < min_lat:
+      min_lat = lat
+    if lat > max_lat:
+      max_lat = lat
+  return min_lng, min_lat, max_lng, max_lat

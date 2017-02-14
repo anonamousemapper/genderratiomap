@@ -11,14 +11,13 @@ From mapsite dir:
 
 from __future__ import print_function
 
-import ast
 import csv
 import sys
 
 from app.constants import *
 from app.models import (
-  db, PumaPolygon, PumaPoint, CountyPolygon, CountyPoint, StatePolygon,
-  StatePoint, PumaPerson, CountyPerson, StatePerson)
+  db, PumaPolygon, CountyPolygon, StatePolygon, PumaPerson, CountyPerson,
+  StatePerson)
 
 csv.field_size_limit(sys.maxsize)
 
@@ -61,10 +60,7 @@ with open(
     polygon = PumaPolygon(
       geo_code, row['NAMELSAD10'].decode('utf-8', 'ignore'), row['STATE10'],
       row[FIELD_NAME_MIN_X], row[FIELD_NAME_MIN_Y], row[FIELD_NAME_MAX_X],
-      row[FIELD_NAME_MAX_Y])
-    points = ast.literal_eval(row[FIELD_NAME_POINTS])
-    for point in points:
-      polygon.points.append(PumaPoint(point[0], point[1]))
+      row[FIELD_NAME_MAX_Y], row[FIELD_NAME_POINTS])
     db.session.add(polygon)
     if i % 1000 == 0:
       db.session.commit()
@@ -80,10 +76,8 @@ with open(
   for i, row in enumerate(csv_reader):
     polygon = CountyPolygon(
       row[GEO_CODE], row[NAME].decode('utf-8', 'ignore'), row[FIELD_NAME_MIN_X],
-      row[FIELD_NAME_MIN_Y], row[FIELD_NAME_MAX_X], row[FIELD_NAME_MAX_Y])
-    points = ast.literal_eval(row[FIELD_NAME_POINTS])
-    for point in points:
-      polygon.points.append(CountyPoint(point[0], point[1]))
+      row[FIELD_NAME_MIN_Y], row[FIELD_NAME_MAX_X], row[FIELD_NAME_MAX_Y],
+      row[FIELD_NAME_POINTS])
     db.session.add(polygon)
     if i % 1000 == 0:
       db.session.commit()
@@ -99,10 +93,8 @@ with open(
   for i, row in enumerate(csv_reader):
     polygon = StatePolygon(
       row['STATEFP'], row['NAME'], row['STUSPS'], row[FIELD_NAME_MIN_X],
-      row[FIELD_NAME_MIN_Y], row[FIELD_NAME_MAX_X], row[FIELD_NAME_MAX_Y])
-    points = ast.literal_eval(row[FIELD_NAME_POINTS])
-    for point in points:
-      polygon.points.append(StatePoint(point[0], point[1]))
+      row[FIELD_NAME_MIN_Y], row[FIELD_NAME_MAX_X], row[FIELD_NAME_MAX_Y],
+      row[FIELD_NAME_POINTS])
     db.session.add(polygon)
     if i % 1000 == 0:
       db.session.commit()
@@ -121,7 +113,7 @@ with open(
       row[RACE], row[EDUCATION], row[HOUSING_STATUS], row[CHILDREN_STATUS],
       row[AGE])
     db.session.add(person)
-    if i % 10000 == 0:
+    if i % 50000 == 0:
       db.session.commit()
     print(str(i) + ' ipums rows completed', end='\r')
     sys.stdout.flush()
@@ -138,7 +130,7 @@ with open(
       row[RACE], row[EDUCATION], row[HOUSING_STATUS], row[CHILDREN_STATUS],
       row[AGE])
     db.session.add(person)
-    if i % 10000 == 0:
+    if i % 50000 == 0:
       db.session.commit()
     print(str(i) + ' ipums rows completed', end='\r')
     sys.stdout.flush()
@@ -155,7 +147,7 @@ with open(
       row[RACE], row[EDUCATION], row[HOUSING_STATUS], row[CHILDREN_STATUS],
       row[AGE])
     db.session.add(person)
-    if i % 10000 == 0:
+    if i % 50000 == 0:
       db.session.commit()
     print(str(i) + ' ipums rows completed', end='\r')
     sys.stdout.flush()

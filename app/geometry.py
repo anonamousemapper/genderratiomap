@@ -1,5 +1,5 @@
 from models import StatePolygon, CountyPolygon, PumaPolygon
-from util import get_geometry_models, get_polygon_name
+from util import get_geometry_model, get_polygon_name
 
 def get_geometry(geo_request, fidelity, fidelity_change):
   """Gets all the polygons specified by the geo_request.
@@ -24,12 +24,12 @@ def get_geometry(geo_request, fidelity, fidelity_change):
   min_y = float(geo_request['min_lat'])
   max_x = float(geo_request['max_long'])
   max_y = float(geo_request['max_lat'])
-  Polygon, Point = get_geometry_models(fidelity)
+  Polygon = get_geometry_model(fidelity)
   results = Polygon.query.filter(
-    Polygon.max_x > min_x,
-    Polygon.min_x < max_x,
-    Polygon.max_y > min_y,
-    Polygon.min_y < max_y).all()
+    Polygon.max_long > min_x,
+    Polygon.min_long < max_x,
+    Polygon.max_lat > min_y,
+    Polygon.min_lat < max_y).all()
   
   # Synthesize the results.
   polygons = []
@@ -39,12 +39,9 @@ def get_geometry(geo_request, fidelity, fidelity_change):
       continue
     name = get_polygon_name(result)
     geo_codes.add(result.geo_code)
-    points = []
-    for point in result.points.order_by(Point.id):
-      points.append([point.latitude, point.longitude])
     polygon = {
       'id': result.id, 'geo_code': result.geo_code, 'name': name,
-      'points': points}
+      'points': result.points}
     polygons.append(polygon)
     
   return polygons, geo_codes
