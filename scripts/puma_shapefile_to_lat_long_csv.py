@@ -91,7 +91,7 @@ with open(sys.argv[2], 'wb') as csv_file:
         lat_lng_points = (
           convert_and_round_points_list(
             convert_point_type(shape.points[point_index:])))
-      fields_dict[FIELD_NAME_POINTS] = str(lat_lng_points)
+      fields_dict[FIELD_NAME_POINTS] = str(lat_lng_points).replace(' ', '')
       # Calculate bounding box.
       (fields_dict[FIELD_NAME_MIN_X],
        fields_dict[FIELD_NAME_MIN_Y],
