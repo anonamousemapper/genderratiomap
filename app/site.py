@@ -14,7 +14,6 @@ def index():
 @app.route('/json/update_criteria', methods=['POST'])
 def update_criteria():
   start = datetime.datetime.now()
-  print('start update_criteria')
   
   criteria_request = request.get_json()
   fidelity = int(criteria_request['fidelity'])
