@@ -7,10 +7,14 @@ from sqlalchemy.dialects.postgresql import TEXT
 
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = (
-  'postgresql://anonamousemapper:'
-  + os.environ['DB_PASS']
-  + '@localhost'
-  + '/genderratio')
+  'postgresql://'
+  + os.environ['RDS_USERNAME']
+  + ':'
+  + os.environ['RDS_PASSWORD']
+  + '@'
+  + os.environ['RDS_HOSTNAME']
+  + '/'
+  + os.environ['RDS_DB_NAME'])
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db = SQLAlchemy(app)
 
