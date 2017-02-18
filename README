@@ -6,8 +6,8 @@ Note: This requires a DB to actually run. The scripts for creating
       to create an issue if you want to contact me to get the
       source files.
 
-Start server (from main directory):
-gunicorn app.site:app -w 1 --threads 12
+Start server (from app directory):
+gunicorn --bind 0.0.0.0:8000 application:app -w 1 --threads 12
 
 Disclaimer: I made this by myself for myself to learn a bit about
             web apps. Figured other people might find it
