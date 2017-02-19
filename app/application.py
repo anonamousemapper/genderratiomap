@@ -1,17 +1,17 @@
 import datetime
 
 from geometry import get_geometry
-from models import app
+from models import application
 from stats import get_stats
 from util import get_fidelity
 from flask import jsonify, render_template, request
 
 
-@app.route('/')
+@application.route('/')
 def index():
 	return render_template('index.html')
 
-@app.route('/json/update_criteria', methods=['POST'])
+@application.route('/json/update_criteria', methods=['POST'])
 def update_criteria():
   start = datetime.datetime.now()
   
@@ -25,7 +25,7 @@ def update_criteria():
   print('update_criteria took ' + str(duration))
   return jsonify(response)
 
-@app.route('/json/update_map', methods=['POST'])
+@application.route('/json/update_map', methods=['POST'])
 def update_map():
   start = datetime.datetime.now()
   geo_request = request.get_json()
@@ -57,4 +57,4 @@ def update_map():
   return jsonify(response)
 
 if __name__ == '__main__':
-    app.run()
+    application.run()

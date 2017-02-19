@@ -5,8 +5,8 @@ from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy.dialects.postgresql import TEXT
 
 
-app = Flask(__name__)
-app.config['SQLALCHEMY_DATABASE_URI'] = (
+application = Flask(__name__)
+application.config['SQLALCHEMY_DATABASE_URI'] = (
   'postgresql://'
   + os.environ['RDS_USERNAME']
   + ':'
@@ -15,8 +15,8 @@ app.config['SQLALCHEMY_DATABASE_URI'] = (
   + os.environ['RDS_HOSTNAME']
   + '/'
   + os.environ['RDS_DB_NAME'])
-app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
-db = SQLAlchemy(app)
+application.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+db = SQLAlchemy(application)
 
 
 # Geo Data for PUMAs
