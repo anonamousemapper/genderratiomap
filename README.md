@@ -1,6 +1,6 @@
 Fully configurable gender ratio map webapp with sub-city detail.
 
-This project is running at [genderratios.us]
+This project is running at [http://genderratios.us]
 
 Note: This requires a DB (Postgres by default) to actually run. The scripts for creating the DB are in this repo, but the source data from which the DB is populated is too big to be stored in GitHub. Feel free to create an issue if you want to get the data that these scripts run on.
 
