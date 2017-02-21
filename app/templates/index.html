@@ -1,16 +1,16 @@
 <head>
-  <title>People Map</title>
+  <title>Gender Ratios Map</title>
   <link rel="stylesheet" type="text/css" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/base/jquery-ui.css" />
   <link rel="stylesheet" type="text/css" href="https://unpkg.com/leaflet@1.0.3/dist/leaflet.css" />
   <link rel="stylesheet" type="text/css" href="/static/index.css" />
   <link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}">
-</head>
-<body>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
   <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
   <script src="https://unpkg.com/leaflet@1.0.3/dist/leaflet.js"></script>
   <script src="/static/js/tinycolor-min.js"></script>
   <script src="/static/js/index.js"></script>
+</head>
+<body>
   <div id="criteria">
     <div id="swatch-1" class="color-swatch"></div>
     <div id="swatch-2" class="color-swatch"></div>
@@ -96,6 +96,7 @@
     </fieldset>
 
   </div>
+
   <div id="people_map"></div>
 
   <script>
@@ -110,11 +111,13 @@
         attribution:
           'Base Map data &copy; ' +
           '<a href="http://openstreetmap.org">OpenStreetMap</a> contributors, ' +
-          '<a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, ' +
           'Imagery &copy; <a href="http://mapbox.com">Mapbox</a>, ' +
           'Demographic data: ' +
           '<a href="https://usa.ipums.org/usa/sampdesc.shtml#us2014a">' +
-          'IPUMS-USA ACS 2014</a>',
+          'IPUMS-USA ACS 2014</a>, ' +
+          'Source Code: '+
+          '<a href="https://github.com/anonamousemapper/genderratiomap">' +
+          'AnonaMouseMapper</a>',
         maxZoom: 18,
         accessToken: 'pk.eyJ1IjoiYW5vbmFtb3VzZW1hcHBlciIsImEiOiJjaXJhdjMwcDUwMTRpZzJtM3djOWhiZWF2In0.VCPr2ZYmGvCia050qW6c7g'
       }

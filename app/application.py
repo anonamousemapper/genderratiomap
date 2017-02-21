@@ -13,21 +13,16 @@ def index():
 
 @application.route('/json/update_criteria', methods=['POST'])
 def update_criteria():
-  start = datetime.datetime.now()
-  
   criteria_request = request.get_json()
   fidelity = int(criteria_request['fidelity'])
   
   # Get the stats for each geo_code in the request based on the criteria.
   response = get_stats(criteria_request, fidelity)
 
-  duration = datetime.datetime.now() - start
-  print('update_criteria took ' + str(duration))
   return jsonify(response)
 
 @application.route('/json/update_map', methods=['POST'])
 def update_map():
-  start = datetime.datetime.now()
   geo_request = request.get_json()
   
   # Get the fidelity to display data at.
@@ -52,8 +47,6 @@ def update_map():
     polygon['stats'] = stats[polygon['geo_code']]
     response['polygons'].append(polygon)
 
-  duration = datetime.datetime.now() - start
-  print('update_map took ' + str(duration))
   return jsonify(response)
 
 if __name__ == '__main__':
