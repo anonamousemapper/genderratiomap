@@ -100,9 +100,9 @@
   <div id="people_map"></div>
 
   <script>
-    var x = -77.04;
-    var y = 38.91;
-    var people_map = L.map('people_map').setView([y, x], 12);
+    var long = -77.04;
+    var lat = 38.91;
+    var people_map = L.map('people_map').setView([lat, long], 12);
     var current_xhr = null;
     people_map.fidelity = -1;
     L.tileLayer(
@@ -122,6 +122,7 @@
         accessToken: 'pk.eyJ1IjoiYW5vbmFtb3VzZW1hcHBlciIsImEiOiJjaXJhdjMwcDUwMTRpZzJtM3djOWhiZWF2In0.VCPr2ZYmGvCia050qW6c7g'
       }
     ).addTo(people_map);
+
     people_map.on('moveend', on_move_end);
     $(":input").change(function(event) {on_criteria_change(people_map);});
   </script>

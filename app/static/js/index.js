@@ -241,4 +241,13 @@ $(function() {
   });
   
   update_map_polygons(people_map);
+
+  if (localStorage.getItem('showedWarning') == null) {
+    people_map.openPopup(
+      '<h1>Please Note!</h1></br>This data comes from a US Government survey ' +
+      'that only samples 1% of the population. <b>Please do not make any ' +
+      'hasty or significant decisions based on this data.</b>',
+      L.latLng(lat, long));
+    localStorage.setItem('showedWarning', true);
+  }
 });
